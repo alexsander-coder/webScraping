@@ -1,10 +1,10 @@
 fetch('http://127.0.0.1:3339/finish')
-  .then(response => response.json())
-  .then(data => {
+  .then((response: Response) => response.json())
+  .then((data: any[]) => {
     console.log(data);
-    const tableElement = document.getElementById("dataTable");
+    const tableElement = document.getElementById("dataTable") as HTMLTableElement; // Defina o tipo para HTMLTableElement
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = tableElement.insertRow(-1);
       const cell1 = row.insertCell(0);
       const cell2 = row.insertCell(1);
@@ -13,15 +13,13 @@ fetch('http://127.0.0.1:3339/finish')
       const cell5 = row.insertCell(4);
       const cell6 = row.insertCell(5);
 
-
       const cleanedName = item.name.replace(/\[\d+\]/g, '').trim();
 
       cell2.innerHTML = cleanedName;
       cell3.innerHTML = item.party;
-      cell4.innerHTML = item.duration
+      cell4.innerHTML = item.duration;
       cell5.innerHTML = item.vice;
-      cell6.innerHTML = item.eleicao
-
+      cell6.innerHTML = item.eleicao;
 
       const imgElement = document.createElement("img");
       imgElement.src = item.image.startsWith("//") ? "https:" + item.image : item.image;
@@ -32,4 +30,4 @@ fetch('http://127.0.0.1:3339/finish')
       cell1.appendChild(imgElement);
     });
   })
-  .catch(error => console.error('Error:', error));
+  .catch((error: Error) => console.error('Error:', error));
